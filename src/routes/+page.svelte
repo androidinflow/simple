@@ -2,7 +2,7 @@
   export let data;
   $: ({ user, isLoggedIn } = data);
   const { posts } = data;
-  console.log(posts);
+  console.log(user?.username);
 </script>
 
 <h1 class="text-3xl font-bold underline text-red-400">RED RUBY</h1>
@@ -22,7 +22,7 @@
   </a>
 {:else}
   <a href="/login">
-    <button class="btn btn-neutral">Login using Github</button>
+    <button class="btn btn-neutral">Login</button>
   </a>
 {/if}
 

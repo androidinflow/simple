@@ -5,7 +5,7 @@
 </script>
 
 <div class="navbar bg-base-200">
-  <div>
+  <div class="flex justify-between w-full">
     <a href="https://kon.redruby.one" class="btn btn-ghost text-xl">RedRuby</a>
     {#if isLoggedIn}
       <a href="/logout">
@@ -13,7 +13,7 @@
       </a>
     {:else}
       <a href="/login">
-        <button class="btn btn-neutral">Login using Github</button>
+        <button class="btn btn-neutral">Login</button>
       </a>
     {/if}
   </div>
