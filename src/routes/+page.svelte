@@ -2,7 +2,6 @@
   export let data;
   $: ({ user, isLoggedIn } = data);
   const { posts } = data;
-  console.log(data.user.email);
 </script>
 
 <h1 class="text-3xl font-bold underline text-red-400">RED RUBY</h1>
@@ -15,6 +14,7 @@
 
 {#if isLoggedIn}
   <h2>Welcome {user?.username}</h2>
+  <img src={"https://ui-avatars.com/api/?name=" + user?.username} alt="kos" />
   <h3>{data.user.email}</h3>
 
   <a href="/logout">
