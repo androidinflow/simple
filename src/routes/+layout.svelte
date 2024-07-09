@@ -8,13 +8,11 @@
   <div class="flex justify-between w-full">
     <a href="https://kon.redruby.one" class="btn btn-ghost text-xl">RedRuby</a>
     {#if isLoggedIn}
-      <a href="/logout">
-        <button class="btn btn-neutral">Logout</button>
-      </a>
-    {:else}
-      <a href="/login">
-        <button class="btn btn-neutral">Login</button>
-      </a>
+      <div class="avatar">
+        <div class="mask mask-squircle w-24">
+          <img src={"https://joesch.moe/api/v1/" + user?.username} alt="kos" />
+        </div>
+      </div>
     {/if}
   </div>
 </div>

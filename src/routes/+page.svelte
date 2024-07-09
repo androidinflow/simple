@@ -14,6 +14,13 @@
 
 {#if isLoggedIn}
   <h2>Welcome {user?.username}</h2>
+
+  <div class="avatar">
+    <div class="mask mask-squircle w-24">
+      <img src={"https://joesch.moe/api/v1/" + user?.username} alt="kos" />
+    </div>
+  </div>
+
   <img
     src={"https://joesch.moe/api/v1/" + user?.username}
     alt="kos"
