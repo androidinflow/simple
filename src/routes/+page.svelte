@@ -14,7 +14,12 @@
 
 {#if isLoggedIn}
   <h2>Welcome {user?.username}</h2>
-  <img src={"https://ui-avatars.com/api/?name=" + user?.username} alt="kos" />
+  <img
+    src={"https://joesch.moe/api/v1/" + user?.username}
+    alt="kos"
+    width="50"
+    height="50"
+  />
   <h3>{data.user.email}</h3>
 
   <a href="/logout">
