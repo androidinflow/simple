@@ -1,7 +1,8 @@
 <script>
   export let data;
+  $: ({ user, isLoggedIn } = data);
 </script>
 
-{#if data.isLoggedIn}
-  <p>{data.user.username}</p>
+{#if isLoggedIn}
+  <p>{user.username}</p>
 {/if}
