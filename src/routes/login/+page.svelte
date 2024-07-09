@@ -16,4 +16,6 @@
   }
 </script>
 
-<button on:click={gotoAuthProvider}>Login with github</button>
+<button class="btn btn-neutral" on:click={gotoAuthProvider}
+  >Login with github</button
+>
