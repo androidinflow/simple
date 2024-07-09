@@ -16,6 +16,8 @@
   }
 </script>
 
-<button class="btn btn-neutral" on:click={gotoAuthProvider}
-  >Login with github</button
->
+<dir class=" justify-center items-center flex h-72">
+  <button class="btn btn-neutral items-center" on:click={gotoAuthProvider}
+    >Login with github</button
+  >
+</dir>
