@@ -30,17 +30,19 @@
   <ul>
     {#each posts as post}
       <h1>Posts</h1>
-      <li>
-        <h2>Post ID: {post.id}</h2>
-        <p>{post.text}</p>
-        {#if post.image}
-          <img
-            width="400px"
-            src="https://end.redruby.one/api/files/posts/{post.id}/{post.image}"
-            alt={posts.Text}
-          />
-        {/if}
-      </li>
+      <a href="/details">
+        <li>
+          <h2>Post ID: {post.id}</h2>
+          <p>{post.text}</p>
+          {#if post.image}
+            <img
+              width="400px"
+              src="https://end.redruby.one/api/files/posts/{post.id}/{post.image}"
+              alt={posts.Text}
+            />
+          {/if}
+        </li>
+      </a>
     {/each}
   </ul>
 {:else}
