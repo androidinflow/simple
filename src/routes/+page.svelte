@@ -2,7 +2,7 @@
   export let data;
   $: ({ user, isLoggedIn } = data);
   const { posts } = data;
-  console.log(user?.username);
+  console.log(data.user.email);
 </script>
 
 <h1 class="text-3xl font-bold underline text-red-400">RED RUBY</h1>
