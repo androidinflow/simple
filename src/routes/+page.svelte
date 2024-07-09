@@ -5,7 +5,13 @@
   console.log(posts);
 </script>
 
-<h1 class="text-3xl font-bold underline text-red-400">Hello world!</h1>
+<h1 class="text-3xl font-bold underline text-red-400">RED RUBY</h1>
+<img
+  src="https://gordonmax.com/wp-content/uploads/2020/06/red_emerald.jpg"
+  width="100"
+  height="100"
+  alt="red-ruby"
+/>
 
 {#if isLoggedIn}
   <h2>Welcome {user?.username}</h2>
