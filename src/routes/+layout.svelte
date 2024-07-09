@@ -9,13 +9,18 @@
     <a href="https://kon.redruby.one" class="btn btn-ghost text-xl m-0 p-0"
       >RedRuby</a
     >
-    <div class="avatar">
-      <div
-        class="ring-black ring-offset-black w-10 rounded-full ring ring-offset-1"
-      >
-        <img src="https://joesch.moe/api/v1/jess" alt="kos" />
+    {#if isLoggedIn}
+      <div class="avatar">
+        <div
+          class="ring-black ring-offset-black w-10 rounded-full ring ring-offset-1"
+        >
+          <img
+            src={"https://joesch.moe/api/v1/" + data.Layout.user.username}
+            alt="kos"
+          />
+        </div>
       </div>
-    </div>
+    {/if}
   </div>
 </div>
-<div class="container mx-auto pt-2"><slot></slot></div>
+<div class="container mx-auto p-2"><slot></slot></div>
