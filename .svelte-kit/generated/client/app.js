@@ -14,8 +14,8 @@ export const server_loads = [0];
 export const dictionary = {
 		"/": [~2],
 		"/dashboard/kos": [~3],
-		"/login": [~4],
-		"/profile": [~5]
+		"/dashboard/profile": [4],
+		"/login": [~5]
 	};
 
 export const hooks = {

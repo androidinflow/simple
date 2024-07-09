@@ -10,16 +10,18 @@
       >RedRuby</a
     >
     {#if isLoggedIn}
-      <div class="avatar">
-        <div
-          class="ring-black ring-offset-black w-10 rounded-full ring ring-offset-1"
-        >
-          <img
-            src={"https://joesch.moe/api/v1/" + data.Layout.user.username}
-            alt="kos"
-          />
+      <a href="/dashboard/profile">
+        <div class="avatar">
+          <div
+            class="ring-black ring-offset-black w-10 rounded-full ring ring-offset-1"
+          >
+            <img
+              src={"https://joesch.moe/api/v1/" + data.user.username}
+              alt="kos"
+            />
+          </div>
         </div>
-      </div>
+      </a>
     {/if}
   </div>
 </div>
