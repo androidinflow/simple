@@ -46,5 +46,5 @@
     {/each}
   </ul>
 {:else}
-  <p>No posts available. maybe if u log in?</p>
+  <p>No posts available. maybe if u login???</p>
 {/if}
