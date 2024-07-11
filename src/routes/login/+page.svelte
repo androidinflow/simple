@@ -1,3 +1,6 @@
+<!-- // src/routes/login/+page.svelte
+ -->
+
 <script>
   import { browser } from "$app/environment";
 
