@@ -2,6 +2,8 @@
   export let data;
   console.log(data);
   $: ({ user, isLoggedIn } = data);
+  const { comments } = data;
+  console.log(comments[0].expand);
 </script>
 
 {#if data.post}
@@ -30,63 +32,51 @@
   <div class="w-full bg-white rounded-lg border p-1">
     <h3 class="font-bold">Discussion</h3>
 
-    <div class="flex flex-col">
-      <div class="border rounded-md p-3 ml-3 my-3">
-        <div class="flex gap-3 items-center">
-          <img
-            alt="kos"
-            src="https://avatars.githubusercontent.com/u/22263436?v=4"
-            class="object-cover w-8 h-8 rounded-full
-                      border-2 border-emerald-400 shadow-emerald-400
-                      "
-          />
+    {#if comments.length > 0}
+      <div class="flex flex-col">
+        {#each comments as comment}
+          <div class="border rounded-md p-3 ml-3 my-3">
+            <div class="flex gap-3 items-center">
+              <img
+                alt="kos"
+                src={"https://joesch.moe/api/v1/" +
+                  comment.expand.user.username}
+                class="object-cover w-8 h-8 rounded-full
+                            border-2 border-emerald-400 shadow-emerald-400
+                            "
+              />
 
-          <h3 class="font-bold">User name</h3>
-        </div>
-
-        <p class="text-gray-600 mt-2">this is sample commnent</p>
+              <h3 class="font-bold">{comment.expand.user.username}</h3>
+            </div>
+            <p class="text-gray-600 mt-2">{comment.text}</p>
+          </div>
+        {/each}
       </div>
-
-      <div class="border rounded-md p-3 ml-3 my-3">
-        <div class="flex gap-3 items-center">
-          <img
-            alt="kos"
-            src="https://avatars.githubusercontent.com/u/22263436?v=4"
-            class="object-cover w-8 h-8 rounded-full
-                      border-2 border-emerald-400 shadow-emerald-400
-                      "
-          />
-
-          <h3 class="font-bold">User name</h3>
-        </div>
-
-        <p class="text-gray-600 mt-2">this is sample commnent</p>
-      </div>
-    </div>
-
-    {#if isLoggedIn}
-      <form>
-        <div class="w-full px-3 my-2">
-          <textarea
-            class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
-            name="body"
-            required
-          ></textarea>
-        </div>
-
-        <div class="w-full flex justify-end px-3">
-          <input
-            type="submit"
-            class="px-2.5 py-1.5 rounded-md text-white text-sm bg-indigo-500 btn btn-neutral"
-            disabled={!isLoggedIn}
-            value="Post Comment"
-          />
-        </div>
-      </form>
-    {:else}
-      <h2>Login to leave comment</h2>
     {/if}
   </div>
+
+  {#if isLoggedIn}
+    <form>
+      <div class="w-full px-3 my-2">
+        <textarea
+          class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
+          name="body"
+          required
+        ></textarea>
+      </div>
+
+      <div class="w-full flex justify-end px-3">
+        <input
+          type="submit"
+          class="px-2.5 py-1.5 rounded-md text-white text-sm bg-indigo-500 btn btn-neutral"
+          disabled={!isLoggedIn}
+          value="Post Comment"
+        />
+      </div>
+    </form>
+  {:else}
+    <h2>Login to leave comment</h2>
+  {/if}
 {:else}
   <h1>post do not exist!</h1>
 {/if}
