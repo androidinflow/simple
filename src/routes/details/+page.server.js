@@ -1,23 +1,24 @@
 // src/routes/+page.server.js
 
-export const load = async ({ locals }) => {
+export const load = async ({ locals, url }) => {
   try {
-    const posts = await locals.pb.collection("posts").getFullList({
-      sort: "-created", // Sort by creation date, descending
-    });
+    const postId = url.searchParams.get("post");
+    console.log(postId);
+
+    const post = await locals.pb.collection("posts").getOne(postId);
 
     // Return the posts to the frontend
     return {
-      posts: posts.map((post) => ({
+      post: {
         id: post.id,
         text: post.text,
         image: post.image,
-      })),
+      },
     };
   } catch (err) {
     console.error("Error fetching posts:", err);
     return {
-      posts: [],
+      post: null,
     };
   }
 };

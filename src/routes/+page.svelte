@@ -25,12 +25,13 @@
     <button class="btn btn-neutral">Login</button>
   </a>
 {/if}
+<div class="divider"></div>
 
 {#if posts.length > 0}
   <ul>
     {#each posts as post}
-      <h1>Posts</h1>
-      <a href="/details">
+      <h1 class="text-3xl">Posts</h1>
+      <a href={"/details?post=" + post.id}>
         <li>
           <h2>Post ID: {post.id}</h2>
           <p>{post.text}</p>

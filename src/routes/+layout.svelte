@@ -1,13 +1,14 @@
 <!-- // src/routes/+layout.svelte -->
 <script>
   import "../app.css";
+  import { page } from "$app/stores";
   export let data;
   $: ({ user, isLoggedIn } = data);
 </script>
 
 <div class="navbar bg-base-200">
   <div class="flex justify-between w-full mx-1">
-    <a href="https://kon.redruby.one" class="btn btn-ghost text-xl m-0 p-0">
+    <a href={$page.url.origin} class="btn btn-ghost text-xl m-0 p-0">
       <img
         src="https://cdn-icons-png.flaticon.com/512/8810/8810503.png"
         alt="redruby"
