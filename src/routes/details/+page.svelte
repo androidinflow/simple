@@ -3,7 +3,8 @@
   console.log(data);
   $: ({ user, isLoggedIn } = data);
   const { comments } = data;
-  console.log(comments[0].expand);
+  /*   console.log(comments[0].expand);*/
+  /* const post = comments[0].expand.post; */
 </script>
 
 {#if data.post}
@@ -17,8 +18,11 @@
 
     <img
       class="object-cover w-full rounded-t-lg h-96 md:h-full md:w-80 md:rounded-none md:rounded-s-lg"
-      src="https://c4.wallpaperflare.com/wallpaper/777/571/633/clash-of-clans-wallpaper-preview.jpg"
-      alt=""
+      src={"https://end.redruby.one/api/files/kaggy7pczl45wc9/" +
+        data.post.id +
+        "/" +
+        data.post.image}
+      alt="ggy"
     />
     <div class="flex flex-col justify-between p-4 leading-normal">
       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
@@ -52,6 +56,8 @@
           </div>
         {/each}
       </div>
+    {:else}
+      <p>no comments yet.</p>
     {/if}
   </div>
 

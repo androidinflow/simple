@@ -7,7 +7,8 @@ export const load = async ({ locals, url }) => {
 
     const post = await locals.pb.collection("posts").getOne(postId);
     const comments = await locals.pb.collection("comments").getFullList({
-      expand: "user",
+      expand: "user, post",
+      filter: `post="${postId}"`,
     });
     console.log(comments);
 

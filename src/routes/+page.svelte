@@ -33,7 +33,7 @@
       <h1 class="text-3xl">Posts</h1>
       <a href={"/details?post=" + post.id}>
         <li>
-          <h2>Post ID: {post.id}</h2>
+          <!--<h2>Post ID: {post.id}</h2>-->
           <p>{post.text}</p>
           {#if post.image}
             <img
