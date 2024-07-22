@@ -31,3 +31,7 @@
     />
   </label>
 </form>
+
+<a href="/logout">
+  <button class="btn btn-neutral">Logout</button>
+</a>

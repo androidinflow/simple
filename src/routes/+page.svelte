@@ -4,26 +4,20 @@
   const { posts } = data;
 </script>
 
-<h1 class="text-3xl font-bold underline text-red-400">RED RUBY</h1>
-<img
-  src="https://gordonmax.com/wp-content/uploads/2020/06/red_emerald.jpg"
-  width="100"
-  height="100"
-  alt="red-ruby"
-/>
+<div class="bg-yellow-600 w-full h-56"></div>
 
 {#if isLoggedIn}
   <h2>Welcome {user?.username}</h2>
 
   <h3>{data.user.email}</h3>
 
-  <a href="/logout">
+  <!--   <a href="/logout">
     <button class="btn btn-neutral">Logout</button>
   </a>
 {:else}
   <a href="/login">
     <button class="btn btn-neutral">Login</button>
-  </a>
+  </a> -->
 {/if}
 <div class="divider"></div>
 
