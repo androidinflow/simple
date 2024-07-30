@@ -35,7 +35,7 @@
                 class="ring-black ring-offset-black w-10 rounded-full ring ring-offset-1"
               >
                 <img
-                  src={"https://joesch.moe/api/v1/" + data.user.username}
+                  src={"https://joesch.moe/api/v1/" + user?.username}
                   alt="kos"
                 />
               </div>

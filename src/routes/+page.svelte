@@ -9,7 +9,7 @@
 {#if isLoggedIn}
   <h2>Welcome {user?.username}</h2>
 
-  <h3>{data.user.email}</h3>
+  <h3>{user?.email}</h3>
 
   <!--   <a href="/logout">
     <button class="btn btn-neutral">Logout</button>

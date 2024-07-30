@@ -9,25 +9,26 @@
 
 {#if data.post}
   <div
-    class="flex flex-col items-center relative bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mb-3"
+    class=" items-center relative bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-full hover:bg-gray-100 dark:border-gray-700 mb-3 mt-2"
   >
     <dir class="text-white absolute top-0 right-3">3 hours ago</dir>
     <dir class="text-white absolute end-3 bottom-0"
       ><button class="btn btn-neutral btn-sm">share</button></dir
     >
-
-    <img
-      class="object-cover w-full rounded-t-lg h-96 md:h-full md:w-80 md:rounded-none md:rounded-s-lg"
-      src={"https://end.redruby.one/api/files/kaggy7pczl45wc9/" +
-        data.post.id +
-        "/" +
-        data.post.image}
-      alt="ggy"
-    />
-    <div class="flex flex-col justify-between p-4 leading-normal">
-      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        {data.post.text}
-      </p>
+    <div class="w-full">
+      <img
+        class="object-cover w-full rounded-t-lg md:h-2/4 md:rounded-none md:rounded-s-lg"
+        src={"https://end.redruby.one/api/files/kaggy7pczl45wc9/" +
+          data.post.id +
+          "/" +
+          data.post.image}
+        alt="ggy"
+      />
+      <div class="flex flex-col justify-between p-4 leading-normal">
+        <p class="mb-3 font-bold text-xl text-gray-700">
+          {data.post.text}
+        </p>
+      </div>
     </div>
   </div>
 
