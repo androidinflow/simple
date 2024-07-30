@@ -6,7 +6,7 @@
   import { RiSystemMenuUnfoldFill } from "svelte-icons-pack/ri";
   export let data;
   $: ({ user, isLoggedIn } = data);
-  console.log(data);
+  const { posts } = data;
 </script>
 
 <div class="drawer lg:drawer-open">
@@ -58,15 +58,33 @@
       aria-label="close sidebar"
       class="drawer-overlay lg:hidden"
     ></label>
-    <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-      <!-- Sidebar content here -->
-      <li><a>Sidebar Item 1</a></li>
-      <li><a>Sidebar Item 2</a></li>
-    </ul>
+
+    <!-- Sidebar content here -->
+    {#if posts.length > 0}
+      <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+        {#each posts as post}
+          <a href={"/details?post=" + post.id}>
+            <li class="flex flex-row bg-white m-2 w-full">
+              <!--<h2>Post ID: {post.id}</h2>-->
+              <!-- {#if post.image} -->
+              <img
+                class="bg-slate-500 w-1/4 h-20 m-0 p-0 rounded-e-none object-cover"
+                src="https://end.redruby.one/api/files/posts/{post.id}/{post.image}"
+                alt={posts.Text}
+              />
+              <!--   -->
+              <p class="w-3/4">{post.text}</p>
+            </li>
+          </a>
+        {/each}
+      </ul>
+    {:else}
+      <p>No posts available. maybe if u login???</p>
+    {/if}
   </div>
 </div>
 
-<footer class="footer bg-neutral text-neutral-content p-10">
+<!-- <footer class="footer bg-neutral text-neutral-content p-10">
   <aside>
     <svg
       width="50"
@@ -132,3 +150,4 @@
     </div>
   </nav>
 </footer>
+ -->

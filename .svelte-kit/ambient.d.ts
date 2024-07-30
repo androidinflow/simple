@@ -26,6 +26,8 @@
  * ```
  */
 declare module '$env/static/private' {
+	export const CLIENT_ID: string;
+	export const CLIENT_SECRET: string;
 	export const POCKETBASE_URL: string;
 	export const GJS_DEBUG_TOPICS: string;
 	export const LESSOPEN: string;
@@ -150,6 +152,8 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+		CLIENT_ID: string;
+		CLIENT_SECRET: string;
 		POCKETBASE_URL: string;
 		GJS_DEBUG_TOPICS: string;
 		LESSOPEN: string;

@@ -2,14 +2,23 @@
 
 // Define the load function
 export const load = async ({ locals }) => {
-  const user = locals.user;
-  if (user) {
-    // Return the output object
-    return { user, isLoggedIn: true };
+  try {
+    const posts = await locals.pb.collection("posts").getFullList({
+      sort: "-created", // Sort by creation date, descending
+    });
+
+    // Return the posts to the frontend
+    return {
+      posts: posts.map((post) => ({
+        id: post.id,
+        text: post.text,
+        image: post.image,
+      })),
+    };
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    return {
+      posts: [],
+    };
   }
-  // Return the output object
-  return {
-    user: undefined,
-    isLoggedIn: false,
-  };
 };
