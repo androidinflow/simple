@@ -1,9 +1,12 @@
 <script>
-  import { goto } from "$app/navigation";
+  import { enhance } from "$app/forms";
 
   export let data;
+  export let form;
+
   let responseText = "";
-  let inputPrompt = data.props.prompt;
+  let inputPrompt = data.prompt || "";
+  let isLoading = false; // Step 1: Add a loading state variable
 
   async function streamResponse(response) {
     responseText = "";
@@ -12,24 +15,38 @@
       responseText += word + " ";
       await new Promise((resolve) => setTimeout(resolve, 50));
     }
-  }
-
-  function handleSubmit() {
-    goto(`?prompt=${encodeURIComponent(inputPrompt)}`);
+    isLoading = false; // Update the loading state once done
   }
 
   $: {
-    if (data.props.response) {
-      streamResponse(data.props.response);
+    if (form?.response) {
+      isLoading = true; // Set loading state to true when response starts
+      streamResponse(form.response);
     }
   }
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
-  <input type="text" bind:value={inputPrompt} placeholder="Enter your prompt" />
+<form method="POST" use:enhance>
+  <input
+    name="prompt"
+    type="text"
+    bind:value={inputPrompt}
+    placeholder="Enter your prompt"
+  />
   <button type="submit">Submit</button>
 </form>
 
-<h2>Prompt: {data.props.prompt}</h2>
-<h3>Response:</h3>
-<p>{responseText}</p>
+{#if isLoading}
+  <!-- Step 3: Conditionally render loading indicator -->
+  <p>Loading...</p>
+{/if}
+
+{#if form}
+  {#if form.success}
+    <h2>Prompt: {inputPrompt}</h2>
+    <h3>Response:</h3>
+    <p>{responseText}</p>
+  {:else}
+    <p>Error: {form.response}</p>
+  {/if}
+{/if}
