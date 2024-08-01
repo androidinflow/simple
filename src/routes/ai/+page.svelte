@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import { enhance } from "$app/forms";
 
   export let data;
@@ -28,6 +28,7 @@
 
 <form method="POST" use:enhance>
   <input
+    class="input input-bordered w-full"
     name="prompt"
     type="text"
     bind:value={inputPrompt}
@@ -37,8 +38,8 @@
 </form>
 
 {#if isLoading}
-  <!-- Step 3: Conditionally render loading indicator -->
-  <p>Loading...</p>
+   Step 3: Conditionally render loading indicator -->
+<!--   <p>Loading...</p>
 {/if}
 
 {#if form}
@@ -50,3 +51,72 @@
     <p>Error: {form.response}</p>
   {/if}
 {/if}
+ -->
+
+<script>
+  import ollama from "ollama";
+
+  let prompt = "";
+  let response = "";
+  let isLoading = false;
+
+  async function getResponse() {
+    if (!prompt) return;
+    isLoading = true;
+    response = "";
+
+    try {
+      const res = await ollama.chat({
+        model: "llama2-uncensored",
+        messages: [{ role: "user", content: prompt }],
+      });
+      response = res.message.content;
+    } catch (error) {
+      response = "Error fetching response: " + error.message;
+    } finally {
+      isLoading = false;
+    }
+  }
+</script>
+
+<main>
+  <h1>Ask the AI</h1>
+  <form on:submit|preventDefault={getResponse}>
+    <label for="prompt">Enter your question:</label>
+    <input type="text" id="prompt" bind:value={prompt} />
+    <button type="submit" disabled={isLoading}>Ask</button>
+  </form>
+
+  {#if isLoading}
+    <p>Loading...</p>
+  {/if}
+
+  {#if response}
+    <h2>Response:</h2>
+    <p>{response}</p>
+  {/if}
+</main>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input {
+    margin-bottom: 1rem;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+  }
+</style>

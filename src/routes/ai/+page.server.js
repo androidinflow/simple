@@ -1,4 +1,4 @@
-export function load({ url }) {
+/* export function load({ url }) {
   const prompt = url.searchParams.get("prompt");
   return {
     prompt,
@@ -11,13 +11,13 @@ export const actions = {
     const prompt = data.get("prompt");
 
     try {
-      const res = await fetch("http://192.168.50.112:11434/api/generate", {
+      const res = await fetch("http://localhost:11434/api/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "llama2-uncensored",
+          model: "llama3.1",
           prompt: prompt,
         }),
       });
@@ -50,3 +50,4 @@ export const actions = {
     }
   },
 };
+ */
