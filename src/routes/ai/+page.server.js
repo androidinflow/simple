@@ -11,7 +11,7 @@ export const actions = {
     const prompt = data.get("prompt");
 
     try {
-      const res = await fetch("http://localhost:11434/api/generate", {
+      const res = await fetch("http://192.168.50.112:11434/api/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
