@@ -1,4 +1,4 @@
-/* export function load({ url }) {
+export function load({ url }) {
   const prompt = url.searchParams.get("prompt");
   return {
     prompt,
@@ -11,13 +11,13 @@ export const actions = {
     const prompt = data.get("prompt");
 
     try {
-      const res = await fetch("http://localhost:11434/api/generate", {
+      const res = await fetch("http://localhost:12345/api/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "llama3.1",
+          model: "phi3:mini",
           prompt: prompt,
         }),
       });
@@ -50,4 +50,3 @@ export const actions = {
     }
   },
 };
- */
