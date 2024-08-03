@@ -9,7 +9,7 @@ export const actions = {
   default: async ({ request, fetch }) => {
     const data = await request.formData();
     const prompt = data.get("prompt");
-
+    //kos
     try {
       const res = await fetch("http://192.168.50.112:12345/api/generate", {
         method: "POST",
