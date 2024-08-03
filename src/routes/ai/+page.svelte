@@ -26,177 +26,46 @@
   }
 </script>
 
-<form method="POST" use:enhance>
+<form method="POST" use:enhance class="mt-2">
   <input
-    class="input input-bordered w-full"
+    class="input input-bordered w-full h-20"
     name="prompt"
     type="text"
     bind:value={inputPrompt}
     placeholder="Enter your prompt"
   />
-  <button type="submit">Submit</button>
+  <!--   <button type="submit" class="btn mt-2">Submit</button>
+ -->
+  <button
+    type="submit"
+    class="my-2 bg-gradient-to-br from-green-500 via-blue-500 to-indigo-700 text-white focus-visible:outline-indigo-500 dark:focus-visible:outline-indigo-500 rounded-xl inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap px-4 py-2 text-sm font-medium tracking-wide transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:opacity-100 active:outline-offset-0 disabled:cursor-not-allowed disabled:opacity-75"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+      class="size-4"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M5 4a.75.75 0 0 1 .738.616l.252 1.388A1.25 1.25 0 0 0 6.996 7.01l1.388.252a.75.75 0 0 1 0 1.476l-1.388.252A1.25 1.25 0 0 0 5.99 9.996l-.252 1.388a.75.75 0 0 1-1.476 0L4.01 9.996A1.25 1.25 0 0 0 3.004 8.99l-1.388-.252a.75.75 0 0 1 0-1.476l1.388-.252A1.25 1.25 0 0 0 4.01 6.004l.252-1.388A.75.75 0 0 1 5 4ZM12 1a.75.75 0 0 1 .721.544l.195.682c.118.415.443.74.858.858l.682.195a.75.75 0 0 1 0 1.442l-.682.195a1.25 1.25 0 0 0-.858.858l-.195.682a.75.75 0 0 1-1.442 0l-.195-.682a1.25 1.25 0 0 0-.858-.858l-.682-.195a.75.75 0 0 1 0-1.442l.682-.195a1.25 1.25 0 0 0 .858-.858l.195-.682A.75.75 0 0 1 12 1ZM10 11a.75.75 0 0 1 .728.568.968.968 0 0 0 .704.704.75.75 0 0 1 0 1.456.968.968 0 0 0-.704.704.75.75 0 0 1-1.456 0 .968.968 0 0 0-.704-.704.75.75 0 0 1 0-1.456.968.968 0 0 0 .704-.704A.75.75 0 0 1 10 11Z"
+        clip-rule="evenodd"
+      />
+    </svg>
+    AI Assist
+  </button>
 </form>
 
-{#if isLoading}
-  Step 3: Conditionally render loading indicator -->
+<!-- {#if isLoading}
   <p>Loading...</p>
-{/if}
+{/if} -->
 
 {#if form}
   {#if form.success}
     <h2>Prompt: {inputPrompt}</h2>
-    <h3>Response:</h3>
     <p>{responseText}</p>
   {:else}
     <p>Error: {form.response}</p>
   {/if}
 {/if}
-
-<!-- 
-<script>
-  import ollama from "ollama";
-
-  let prompt = "";
-  let response = "";
-  let isLoading = false;
-
-  async function getResponse() {
-    if (!prompt) return;
-    isLoading = true;
-    response = "";
-
-    try {
-      const res = await ollama.chat({
-        model: "phi3:mini",
-        messages: [{ role: "user", content: prompt }],
-      });
-      response = res.message.content;
-    } catch (error) {
-      response = "Error fetching response: " + error.message;
-    } finally {
-      isLoading = false;
-    }
-  }
-</script>
-
-<main>
-  <h1>Ask the AI</h1>
-  <form on:submit|preventDefault={getResponse}>
-    <label for="prompt">Enter your question:</label>
-    <input type="text" id="prompt" bind:value={prompt} />
-    <button type="submit" disabled={isLoading}>Ask</button>
-  </form>
-
-  {#if isLoading}
-    <p>Loading...</p>
-  {/if}
-
-  {#if response}
-    <h2>Response:</h2>
-    <p>{response}</p>
-  {/if}
-</main>
-
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  input {
-    margin-bottom: 1rem;
-  }
-
-  button {
-    padding: 0.5rem 1rem;
-  }
-</style>
-
-llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
-
-<!-- 
-<script>
-  let prompt = "";
-  let response = "";
-  let isLoading = false;
-
-  async function getResponse() {
-    if (!prompt) return;
-    isLoading = true;
-    response = "";
-
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt }),
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        response = data.content;
-      } else {
-        const error = await res.json();
-        response = "Error fetching response: " + error.error;
-      }
-    } catch (error) {
-      response = "Error fetching response: " + error.message;
-    } finally {
-      isLoading = false;
-    }
-  }
-</script>
-
-<main>
-  <h1>Ask the AI</h1>
-  <form on:submit|preventDefault={getResponse}>
-    <label for="prompt">Enter your question:</label>
-    <input type="text" id="prompt" bind:value={prompt} />
-    <button type="submit" disabled={isLoading}>Ask</button>
-  </form>
-
-  {#if isLoading}
-    <p>Loading...</p>
-  {/if}
-
-  {#if response}
-    <h2>Response:</h2>
-    <p>{response}</p>
-  {/if}
-</main>
-
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  input {
-    margin-bottom: 1rem;
-  }
-
-  button {
-    padding: 0.5rem 1rem;
-  }
-</style>
- -->
