@@ -1,71 +1,142 @@
+<!-- +page.svelte -->
 <script>
   import { enhance } from "$app/forms";
+  import { fade, fly } from "svelte/transition";
 
-  export let data;
-  export let form;
+  let messages = [];
+  let inputMessage = "";
+  let isLoading = false;
 
-  let responseText = "";
-  let inputPrompt = data.prompt || "";
-  let isLoading = false; // Step 1: Add a loading state variable
+  $: isInputEmpty = !inputMessage.trim();
 
-  async function streamResponse(response) {
-    responseText = "";
-    let words = response.split(" ");
-    for (let word of words) {
-      responseText += word + " ";
-      await new Promise((resolve) => setTimeout(resolve, 50));
-    }
-    isLoading = false; // Update the loading state once done
-  }
-
-  $: {
-    if (form?.response) {
-      isLoading = true; // Set loading state to true when response starts
-      streamResponse(form.response);
-    }
+  function handleSubmit(event) {
+    isLoading = true;
+    return async ({ result }) => {
+      isLoading = false;
+      if (result.type === "success") {
+        messages = result.data.history;
+        inputMessage = "";
+      } else {
+        alert(result.data.error);
+      }
+    };
   }
 </script>
 
-<form method="POST" use:enhance class="mt-2">
-  <input
-    class="input input-bordered w-full h-20"
-    name="prompt"
-    type="text"
-    bind:value={inputPrompt}
-    placeholder="Enter your prompt"
-  />
-  <!--   <button type="submit" class="btn mt-2">Submit</button>
- -->
-  <button
-    type="submit"
-    class="my-2 bg-gradient-to-br from-green-500 via-blue-500 to-indigo-700 text-white focus-visible:outline-indigo-500 dark:focus-visible:outline-indigo-500 rounded-xl inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap px-4 py-2 text-sm font-medium tracking-wide transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:opacity-100 active:outline-offset-0 disabled:cursor-not-allowed disabled:opacity-75"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 16 16"
-      fill="currentColor"
-      aria-hidden="true"
-      class="size-4"
-    >
-      <path
-        fill-rule="evenodd"
-        d="M5 4a.75.75 0 0 1 .738.616l.252 1.388A1.25 1.25 0 0 0 6.996 7.01l1.388.252a.75.75 0 0 1 0 1.476l-1.388.252A1.25 1.25 0 0 0 5.99 9.996l-.252 1.388a.75.75 0 0 1-1.476 0L4.01 9.996A1.25 1.25 0 0 0 3.004 8.99l-1.388-.252a.75.75 0 0 1 0-1.476l1.388-.252A1.25 1.25 0 0 0 4.01 6.004l.252-1.388A.75.75 0 0 1 5 4ZM12 1a.75.75 0 0 1 .721.544l.195.682c.118.415.443.74.858.858l.682.195a.75.75 0 0 1 0 1.442l-.682.195a1.25 1.25 0 0 0-.858.858l-.195.682a.75.75 0 0 1-1.442 0l-.195-.682a1.25 1.25 0 0 0-.858-.858l-.682-.195a.75.75 0 0 1 0-1.442l.682-.195a1.25 1.25 0 0 0 .858-.858l.195-.682A.75.75 0 0 1 12 1ZM10 11a.75.75 0 0 1 .728.568.968.968 0 0 0 .704.704.75.75 0 0 1 0 1.456.968.968 0 0 0-.704.704.75.75 0 0 1-1.456 0 .968.968 0 0 0-.704-.704.75.75 0 0 1 0-1.456.968.968 0 0 0 .704-.704A.75.75 0 0 1 10 11Z"
-        clip-rule="evenodd"
-      />
-    </svg>
-    AI Assist
-  </button>
-</form>
-
-<!-- {#if isLoading}
-  <p>Loading...</p>
-{/if} -->
-
-{#if form}
-  {#if form.success}
-    <h2>Prompt: {inputPrompt}</h2>
-    <p>{responseText}</p>
-  {:else}
-    <p>Error: {form.response}</p>
+<div class="chat-container">
+  <h1>Chat with AI</h1>
+  <div class="messages" id="messages">
+    {#each messages as message, i (i)}
+      <div
+        class="message {message.role}"
+        transition:fly={{ y: 20, duration: 300 }}
+      >
+        <strong>{message.role === "user" ? "You" : "AI"}:</strong>
+        {message.content}
+      </div>
+    {/each}
+  </div>
+  <form method="POST" use:enhance={handleSubmit}>
+    <input type="hidden" name="history" value={JSON.stringify(messages)} />
+    <input
+      type="text"
+      name="message"
+      bind:value={inputMessage}
+      placeholder="Type your message..."
+      disabled={isLoading}
+    />
+    <button type="submit" disabled={isLoading || isInputEmpty}>Send</button>
+  </form>
+  {#if isLoading}
+    <div class="loader" transition:fade>Loading...</div>
   {/if}
-{/if}
+</div>
+
+<style>
+  :global(body) {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+  }
+
+  .chat-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+
+  .messages {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #e1e4e8;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 18px;
+    max-width: 80%;
+    word-wrap: break-word;
+  }
+
+  .user {
+    background-color: #007bff;
+    color: white;
+    margin-left: auto;
+  }
+
+  .assistant {
+    background-color: #f1f3f5;
+    color: #333;
+  }
+
+  form {
+    display: flex;
+    gap: 10px;
+  }
+
+  input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #e1e4e8;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+
+  button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+
+  button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+
+  .loader {
+    text-align: center;
+    margin-top: 10px;
+    color: #666;
+  }
+</style>

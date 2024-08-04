@@ -1,52 +1,40 @@
-export function load({ url }) {
-  const prompt = url.searchParams.get("prompt");
-  return {
-    prompt,
-  };
-}
+// +page.server.js
+import { Ollama } from "ollama";
+import { fail } from "@sveltejs/kit";
 
 export const actions = {
-  default: async ({ request, fetch }) => {
+  default: async ({ request }) => {
     const data = await request.formData();
-    const prompt = data.get("prompt");
-    //kos kon
+    const message = data.get("message");
+    const history = JSON.parse(data.get("history") || "[]");
+
+    if (!message || message.trim() === "") {
+      return fail(400, { error: "Message cannot be empty" });
+    }
+
     try {
-      const res = await fetch("http://192.168.50.112:11222/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "phi3:mini",
-          prompt: prompt,
-        }),
+      const chatHistory = [...history, { role: "user", content: message }];
+      const ollama = new Ollama({ host: "http://192.168.50.112:11222" });
+      const response = await ollama.chat({
+        model: "phi3:mini",
+        messages: chatHistory,
       });
 
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
+      chatHistory.push({
+        role: "assistant",
+        content: response.message.content,
+      });
 
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let result = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split("\n");
-        for (const line of lines) {
-          if (line.trim() !== "") {
-            const parsed = JSON.parse(line);
-            result += parsed.response;
-          }
-        }
-      }
-
-      return { success: true, response: result.trim() };
+      return {
+        success: true,
+        message: response.message.content,
+        history: chatHistory,
+      };
     } catch (error) {
       console.error("Error:", error);
-      return { success: false, response: error.message };
+      return fail(500, {
+        error: "An error occurred while processing your request.",
+      });
     }
   },
 };
