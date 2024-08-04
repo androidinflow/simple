@@ -41,6 +41,7 @@
 >
   <div class="flex-1 p-2 relative max-h-96">
     <img
+      transition:fade
       src={alian}
       alt="alian"
       class="h-full object-cover w-full rounded-md"
@@ -62,7 +63,7 @@
         </div>
       {/each}
     </div>
-    <div class="w-full max-w-[calc(100%-1rem)]">
+    <div class="w-full max-w-full">
       <form method="POST" use:enhance={handleSubmit} class="flex gap-2">
         <input type="hidden" name="history" value={JSON.stringify(messages)} />
 
