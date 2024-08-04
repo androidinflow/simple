@@ -14,7 +14,7 @@
   <div class="drawer-content p-1">
     <!-- Page content here -->
 
-    <div class="navbar bg-blue-100 h-20 rounded-md">
+    <div class="navbar bg-black h-20 rounded-md">
       <div class="flex justify-between w-full">
         <label for="my-drawer-4" class="lg:hidden scale-150 p-2">
           <Icon src={RiSystemMenuUnfoldFill} />
@@ -24,9 +24,9 @@
             src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffiles.tips.gg%2Fstatic%2Fimage%2Fteams%2Ffuria-csgo.png&f=1&nofb=1&ipt=ff2c20aa053034d06aba3385fbd416052fcc652b07a30b7c9301647597c7a680&ipo=images"
             alt="redruby"
             width="40"
-            class="m-0 p-0"
+            class="m-0 p-0 invert"
           />
-          CS2-Club
+          <p class="text-white">CS2-Club</p>
         </a>
 
         {#if isLoggedIn}
