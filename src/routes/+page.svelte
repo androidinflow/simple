@@ -9,7 +9,7 @@
   import alian from "$lib/alian.png";
 
   let messages = [];
-  let inputMessage = "hey!";
+  let inputMessage = "Hey!";
   let isLoading = false;
 
   $: isInputEmpty = !inputMessage.trim();
@@ -29,9 +29,9 @@
 </script>
 
 <div
-  class="mx-auto flex flex-col md:flex-row h-full p-4 bg-white rounded-lg shadow-md mt-4"
+  class="mx-auto flex flex-col md:flex-row h-full p-4 bg-black rounded-lg shadow-md mt-2"
 >
-  <div class="bg-blue-200 flex-1 p-2 relative">
+  <div class="  flex-1 p-2 relative">
     <img
       src={alian}
       alt="alian"
@@ -39,9 +39,9 @@
     />
   </div>
 
-  <div class="flex-1 bg-white relative mt-4 md:mt-0 md:ml-4">
+  <div class="flex-1 relative mt-4 md:mt-0 md:ml-4">
     <div
-      class="messages bg-white overflow-y-auto rounded-lg p-4 h-full min-h-96 max-h-[calc(100%-50px)]"
+      class="messages overflow-y-auto rounded-lg p-4 h-full max-h-[calc(100%-70px)]"
       id="messages"
     >
       {#each messages as message, i (i)}
@@ -54,7 +54,7 @@
         </div>
       {/each}
     </div>
-    <div class="w-full max-w-[calc(100%-1rem)] absolute bottom-3 p-2">
+    <div class="w-full max-w-[calc(100%-1rem)]">
       <form method="POST" use:enhance={handleSubmit} class="flex gap-2">
         <input type="hidden" name="history" value={JSON.stringify(messages)} />
         <input
@@ -67,11 +67,18 @@
           disabled={isLoading}
           class="flex-grow p-2 border border-gray-300 rounded-lg"
         />
-        <button
+        <!-- <button
           type="submit"
           disabled={isLoading || isInputEmpty}
           class="p-2 bg-blue-500 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed"
           >Send</button
+        > -->
+
+        <button
+          type="submit"
+          disabled={isLoading || isInputEmpty}
+          class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          >Generate</button
         >
       </form>
       {#if isLoading}
@@ -99,10 +106,10 @@
 <div class="divider"></div>
 
 {#if posts.length > 0}
-  <ul class="grid gap-2 grid-cols-1 md:grid-cols-2">
+  <ul class="grid gap-1 grid-cols-1 md:grid-cols-2">
     {#each posts as post}
       <a href={"/details?post=" + post.id}>
-        <li class="w-full bg-slate-500 m-1">
+        <li class="w-full bg-slate-500 mb-2 rounded-md">
           <!--<h2>Post ID: {post.id}</h2>-->
           <p class="w-full py-4 px-2 text-white">{post.text}</p>
           {#if post.image}

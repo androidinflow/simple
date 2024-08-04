@@ -14,7 +14,7 @@
   <div class="drawer-content p-1">
     <!-- Page content here -->
 
-    <div class="navbar bg-blue-100 h-20">
+    <div class="navbar bg-blue-100 h-20 rounded-md">
       <div class="flex justify-between w-full">
         <label for="my-drawer-4" class="lg:hidden scale-150 p-2">
           <Icon src={RiSystemMenuUnfoldFill} />
