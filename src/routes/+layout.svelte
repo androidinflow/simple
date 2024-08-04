@@ -46,7 +46,7 @@
           <a href="/login">
             <button
               type="button"
-              class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-lg px-5 py-5 text-center"
+              class="text-black font-bold bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg text-lg px-5 py-3 text-center"
               >Login</button
             >
           </a>
@@ -72,17 +72,17 @@
         {#each posts as post}
           <a href={"/details?post=" + post.id}>
             <li
-              class="flex flex-row bg-slate-100 mb-1 w-full h-20 rounded-md rounded-e-none"
+              class="flex flex-row bg-black mb-1 w-full h-20 rounded-md rounded-e-none"
             >
               <!--<h2>Post ID: {post.id}</h2>-->
               <!-- {#if post.image} -->
               <img
-                class="bg-slate-500 w-1/4 h-20 m-0 p-0 object-cover"
+                class="bg-slate-500 rounded-none w-1/4 h-20 m-0 p-0 object-cover"
                 src="https://end.redruby.one/api/files/posts/{post.id}/{post.image}"
                 alt={posts.Text}
               />
               <!--   -->
-              <p class="w-3/4">{post.text}</p>
+              <p class="w-3/4 text-white">{post.text}</p>
             </li>
           </a>
         {/each}
