@@ -1,4 +1,3 @@
-<!-- +page.svelte -->
 <script>
   import { enhance } from "$app/forms";
   import { fade, fly } from "svelte/transition";
@@ -23,12 +22,15 @@
   }
 </script>
 
-<div class="chat-container">
-  <h1>Chat with AI</h1>
-  <div class="messages" id="messages">
+<div class="mx-auto p-4 bg-red-200 min-h-full rounded-lg shadow-md mt-4">
+  <h1 class="text-2xl font-bold text-center text-gray-800">Chat with AI</h1>
+  <div
+    class="messages overflow-y-auto h-96 border border-gray-300 rounded-lg p-4 my-4"
+    id="messages"
+  >
     {#each messages as message, i (i)}
       <div
-        class="message {message.role}"
+        class={`message p-2 rounded-lg mb-2 ${message.role === "user" ? "bg-blue-500 text-white ml-auto" : "bg-gray-200 text-gray-800"}`}
         transition:fly={{ y: 20, duration: 300 }}
       >
         <strong>{message.role === "user" ? "You" : "AI"}:</strong>
@@ -36,107 +38,38 @@
       </div>
     {/each}
   </div>
-  <form method="POST" use:enhance={handleSubmit}>
-    <input type="hidden" name="history" value={JSON.stringify(messages)} />
-    <input
-      type="text"
-      name="message"
-      bind:value={inputMessage}
-      placeholder="Type your message..."
-      disabled={isLoading}
-    />
-    <button type="submit" disabled={isLoading || isInputEmpty}>Send</button>
-  </form>
-  {#if isLoading}
-    <div class="loader" transition:fade>Loading...</div>
-  {/if}
+  <div class=" w-ful">
+    <form method="POST" use:enhance={handleSubmit} class="flex gap-2">
+      <input type="hidden" name="history" value={JSON.stringify(messages)} />
+      <input
+        type="text"
+        name="message"
+        bind:value={inputMessage}
+        placeholder="Type your message..."
+        disabled={isLoading}
+        class="flex-grow p-2 border border-gray-300 rounded-lg"
+      />
+      <button
+        type="submit"
+        disabled={isLoading || isInputEmpty}
+        class="p-2 bg-blue-500 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed"
+        >Send</button
+      >
+    </form>
+    {#if isLoading}
+      <div class="loader text-center text-gray-600 mt-4" transition:fade>
+        Loading...
+      </div>
+    {/if}
+  </div>
 </div>
 
 <style>
   :global(body) {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 0;
-  }
-
-  .chat-container {
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  h1 {
-    text-align: center;
-    color: #333;
+    @apply font-sans bg-gray-100;
   }
 
   .messages {
-    height: 400px;
-    overflow-y: auto;
-    border: 1px solid #e1e4e8;
-    border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 20px;
-  }
-
-  .message {
-    margin-bottom: 10px;
-    padding: 8px 12px;
-    border-radius: 18px;
-    max-width: 80%;
-    word-wrap: break-word;
-  }
-
-  .user {
-    background-color: #007bff;
-    color: white;
-    margin-left: auto;
-  }
-
-  .assistant {
-    background-color: #f1f3f5;
-    color: #333;
-  }
-
-  form {
-    display: flex;
-    gap: 10px;
-  }
-
-  input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #e1e4e8;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-
-  button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-
-  button:hover:not(:disabled) {
-    background-color: #0056b3;
-  }
-
-  button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-
-  .loader {
-    text-align: center;
-    margin-top: 10px;
-    color: #666;
+    @apply flex flex-col;
   }
 </style>
