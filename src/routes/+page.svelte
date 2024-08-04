@@ -15,7 +15,7 @@
 
   $: isInputEmpty = !inputMessage.trim();
 
-  function handleSubmit(event) {
+  function handleSubmit() {
     isLoading = true;
     return async ({ result }) => {
       isLoading = false;
