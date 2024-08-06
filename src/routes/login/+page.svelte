@@ -2,6 +2,8 @@
  -->
 
 <script>
+  import { browser } from "$app/environment";
+
   // Define the data variable
   export let data;
 
@@ -18,7 +20,7 @@
 </script>
 
 <div
-  class=" justify-center items-center gap-7 h-[calc(100vh_-_5rem)] flex bg-black"
+  class=" justify-center items-center mt-2 rounded-lg gap-7 h-[calc(100vh_-_5rem)] flex flex-col md:flex-row bg-black"
 >
   <p class="text-white">login to use all the fututes of the site.</p>
   <button
