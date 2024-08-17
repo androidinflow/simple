@@ -25,7 +25,7 @@
         alt="ggy"
       />
       <div class="flex flex-col justify-between p-4 leading-normal">
-        <p class="mb-3 font-bold text-xl text-gray-700">
+        <p class="mb-3 text-gray-700">
           {@html data.post.text}
         </p>
       </div>
@@ -87,3 +87,6 @@
 {:else}
   <h1>post do not exist!</h1>
 {/if}
+
+<style>
+</style>
