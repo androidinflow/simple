@@ -16,7 +16,7 @@ export const load = async ({ locals, url }) => {
     return {
       post: {
         id: post.id,
-        text: post.text,
+        text: post.info,
         image: post.image,
       },
       comments: comments.map((comment) => ({

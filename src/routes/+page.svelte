@@ -41,7 +41,6 @@
 >
   <div class="flex-1 p-2 relative max-h-96">
     <img
-      transition:fade
       src={alian}
       alt="alian"
       class="h-full object-cover w-full rounded-md"
@@ -86,9 +85,7 @@
         </div>
       </form>
       {#if isLoading}
-        <div class="loader text-center text-gray-600 mt-4" transition:fade>
-          Loading...
-        </div>
+        <div class="loader text-center text-gray-600 mt-4">Loading...</div>
       {/if}
     </div>
   </div>

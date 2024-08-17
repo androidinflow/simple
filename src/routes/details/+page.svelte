@@ -26,7 +26,7 @@
       />
       <div class="flex flex-col justify-between p-4 leading-normal">
         <p class="mb-3 font-bold text-xl text-gray-700">
-          {data.post.text}
+          {@html data.post.text}
         </p>
       </div>
     </div>
